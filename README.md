@@ -15,4 +15,6 @@ post this click on "ENABLE" button and download the API key as json as that file
 Google Cloud: For providing the Speech-to-Text API.
 Node.js Community: For building a robust platform for server-side JavaScript applications.
 
+<img width="785" alt="image" src="https://github.com/user-attachments/assets/eb4880c4-f2c8-4c18-8a17-7696322befed">
+
 Go ahead, upload your fab video, and see its transcript!
