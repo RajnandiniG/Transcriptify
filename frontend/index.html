@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transcriptify</title>
+    <!-- Import Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"> <!-- Add this line -->
+    <style>
+        #transcribedText{
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Preview Video</h2>
+                <!-- id will be used later to create script -->
+                <video id="videoPreview" controls class="w-100"></video>
+                <h2 class="mt-4">Upload Video</h2>
+                <input type="file" id="videoUpload" class="form-control" />
+                <button id="transcribeButton" type="button" class="btn btn-primary mt-2">Transcribe</button>
+            </div>
+            <div class="col-lg-6">
+                <h2>Transcribed Text</h2>
+                <div id="transcribedText" class="border border-primary h-100"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        const videoUpload = document.getElementById("videoUpload");
+        const videoPreview = document.getElementById("videoPreview");
+        const transcribeButton = document.getElementById("transcribeButton");
+        const transcribedText = document.getElementById("transcribedText");
+
+        let selectedFile;
+
+        videoUpload.addEventListener("change", function(e) {
+
+            if(e.target.files && e.target.files.length >0) {
+                selectedFile = e.target.files[0];
+                //stores the selected video as URL in the selectedVideo variable
+                let selectedVideo = URL.createObjectURL(selectedFile);
+                //allows the user to preview the selected video directly in the browser
+                videoPreview.src = selectedVideo;
+            }
+        })
+        //this function is triggered when transcribe Button is clicked
+        async function transcribeVideo() {
+
+            let formData = new FormData();
+
+            formData.append("file", selectedFile)
+            //send request to API with form data as our payload
+            try {
+
+                    let response = await axios.post("http://localhost:1330/transcribe", formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    //if request is successful this function will handle it
+                    if(response.data) {
+                        displayTranscription(response);
+                    }
+            }
+            catch (e) {
+                console.log(error);
+
+                alert("Video Transcription Failed");
+            }
+        }
+
+        transcribeButton.addEventListener("click", transcribeVideo);
+
+        function displayTranscription(response) {
+
+            transcribedText.innerHTML = response.data.text;
+        }
+    </script>
+</body>
+</html>
