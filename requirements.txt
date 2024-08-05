@@ -7,6 +7,7 @@ npm install -g http-server
 1. npm init -y
 2. npm install dotenv @google/generative-ai     //Will create a node modules folder inside
 3. npm install express cors
+FFmpeg is a powerful, open-source multimedia framework used for handling audio, video, and other multimedia files and streams. It provides a suite of libraries and tools to perform a wide range of operations on media files.
 4. npm install ffmpeg-static fluent-ffmpeg
 
 # To run frontend and backend,
