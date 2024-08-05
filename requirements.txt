@@ -1,0 +1,14 @@
+**Install node.js from the official site**
+
+# Run below commands in frontend folder,
+npm install -g http-server
+
+# Run below commands in backend and geminiApi folder,
+1. npm init -y
+2. npm install dotenv @google/generative-ai     //Will create a node modules folder inside
+3. npm install express cors
+4. npm install ffmpeg-static fluent-ffmpeg
+
+# To run frontend and backend,
+npx http-server ./frontend : to run the frontend
+node server.js : to run the backend
